@@ -1,50 +1,27 @@
 import React from 'react'
-import {Button} from 'antd-mobile'
-import 'antd-mobile/dist/antd-mobile.min.css'
+import {connect} from 'react-redux'
+import {addGun, removeGun, addGunAsync} from './index.redux'
+import {Button,Flex} from 'antd-mobile'
+@connect(
+    state => ({name: state.counter}),
+    {addGun, removeGun, addGunAsync}
+)
 class App extends React.Component {
     render() {
-        let boss = '李云龙'
         return (
             <div>
-                <h2>独立团，团长{boss}</h2>
-                <One boss='张大喵'/>
-                <QiBingLian boss='孙德胜'/>
-            </div>
-        )
-    }
-}
-
-function QiBingLian(props) {
-    return <h2>骑兵连连长{props.boss},冲啊！</h2>
-}
-
-class One extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            solders: ['虎子', '柱子', '王根生']
-        }
-    }
-
-    addSolder() {
-        console.log('hello add solder');
-        this.setState({
-            solders: [...this.state.solders, `新兵蛋子${Math.random()}`]
-        })
-    }
-
-    render() {
-        return (
-            <div>
-                <h2>一营，营长{this.props.boss}</h2>
-                <Button onClick={()=>this.addSolder()}>新近入伍</Button>
-                <ul>
-                    {
-                        this.state.solders.map(v => {
-                            return <li key={v}>{v}</li>
-                        })
-                    }
-                </ul>
+                <h1>现在有机枪{this.props.num}把</h1>
+                <Flex>
+                    <Flex.Item>
+                        <Button type="primary" onClick={this.props.addGun}>申请武器</Button>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Button type="primary"  onClick={this.props.removeGun}>上交武器</Button>
+                    </Flex.Item>
+                    <Flex.Item>
+                        <Button type="primary"  onClick={this.props.addGunAsync}>拖两天再给</Button>
+                    </Flex.Item>
+                </Flex>
             </div>
         )
     }
