@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {addGun, removeGun, addGunAsync} from './index.redux'
 import {Button,Flex} from 'antd-mobile'
 @connect(
-    state => ({name: state.counter}),
+    state => ({num: state.counter}),
     {addGun, removeGun, addGunAsync}
 )
 class App extends React.Component {
